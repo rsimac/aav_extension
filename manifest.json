@@ -1,0 +1,15 @@
+{
+  "name": "AAV SimBrief Prefill",
+  "description": "AAV Prefill Extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  
+    "content_scripts": [
+        {
+            "matches": ["https://aavirtual.com/pages.php?name=Pilot_Data&pilot_id=*", "https://aavirtual.com/pages.php?name=Submit_FREP"],
+            "js": ["aavprefill.js"]
+        }
+    ],
+    
+    "permissions": ["storage"]
+}
