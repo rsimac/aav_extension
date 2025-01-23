@@ -1,5 +1,5 @@
 # aav_extension
-Chrome browser extension for aavirtual airline, allowing for automated flight prefill to SimBrief
+Chrome browser extension for AAVirtual (https://aavirtual.com) airline, allowing for automated flight prefill to SimBrief
 
 ## Description
 This Chrome Browser Extension provides the SimBrief links for pre-filling the scheduled flights visible on Pilot Data page.
@@ -13,6 +13,10 @@ Additionally, this extension is preloading the select list for flight numbers at
 Example screenshot, demonstrating the list of flights, and the airports for selected flight:
 
 ![image](https://github.com/user-attachments/assets/6a13bf7c-62a1-4375-9892-ab44cfdce434)
+
+## Implementation
+This extension consists of simple JavaScript code, and is allowed to read and modify only selected AAVirtual pages, namely the: `Pilot Data` page and `Submit FREP` page.
+
 
 
 ## Installation
