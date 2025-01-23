@@ -20,6 +20,6 @@ This extension consists of simple JavaScript code, and is allowed to read and mo
 
 
 ## Installation
-1. At your local disk, create the folder named `aav_extension`
+1. At your local disk, create the folder named `extension`
 2. From this Github repository, download all of the files from the folder [extension](./extension) into your local folder.
 3. From Chrome web browser, follow the instructions on installing local Extensions: https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked
