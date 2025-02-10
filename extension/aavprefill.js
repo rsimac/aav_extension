@@ -1,4 +1,4 @@
-console.log("starting aav prefill extension 20250123")
+console.log("starting aav prefill extension")
 
 
 if (document.location.search.startsWith("?name=Pilot_Data")) {
@@ -26,16 +26,26 @@ if (document.location.search.startsWith("?name=Pilot_Data")) {
         to = fromto[1];
         airline = airlinefnum.slice(0,3);
         flightnum = airlinefnum.slice(3);
+        
         //console.log({airline}); console.log({flightnum}); console.log({from}); console.log({to});
-        simbrief = "<a href=https://dispatch.simbrief.com/options/custom?airline="+airline+"&fltnum="+flightnum+"&orig="+from+"&dest="+to+">PREFILL</a>";
-        //console.log({simbrief});
-        newrow = newrow + flight
+        
 
         if (airlinefnum != "COMPLETED") {
-            newrow = newrow + " " + simbrief
+            simbrief = `<a target="_blank" href="https://dispatch.simbrief.com/options/custom?airline=${airline}&fltnum=${flightnum}&orig=${from}&dest=${to}">SIMBRIEF</a>`;
+            flightaware = `<a target="_blank" href="https://www.flightaware.com/live/findflight?origin=${from}&destination=${to}">FLIGHTAWARE</a>`
+            frep = `<a target="_blank" href="https://aavirtual.com/pages.php?name=Submit_FREP&flight=${airlinefnum}&orig=${from}&dest=${to}">${airlinefnum}</a>`;
+            skyvectorfrom = `<a target="_blank" href="https://skyvector.com/airport/${from}">${from}</a>`;
+            skyvectorto = `<a target="_blank" href="https://skyvector.com/airport/${to}">${to}</a>`;
+            newrow = newrow + frep + " " + skyvectorfrom +"-"+ skyvectorto+ "    " + simbrief + "    " + flightaware + "   "
+            
             store = {"airline": airline, "flight": flightnum, "from": from, "to": to};
             storedflights.push(store);
         }
+        else {
+            newrow += flight;
+        }
+            
+        
         
         newrow += "<br>"
     }
@@ -46,12 +56,28 @@ if (document.location.search.startsWith("?name=Pilot_Data")) {
     chrome.storage.local.set({"aavflights": storedflights});
 }    
 else if (document.location.search.startsWith("?name=Submit_FREP")) {
+    //check if document uri contains params, fill in 
+    uri = new URL(document.documentURI)
+    uriflight = uri.searchParams.get("flight");
+    uriorig = uri.searchParams.get("orig");
+    uridest = uri.searchParams.get("dest");
+    
+    oldelem = document.getElementsByName("Flight_Number")[0]
+    departurelem = document.getElementsByName("Departure_Airport")[0]
+    arrivalelem = document.getElementsByName("Arrival_Airport")[0]
+    
+    
+    if (uriflight) {
+        oldelem.setAttribute("value", uriflight);
+        departurelem.setAttribute("value", uriorig);
+        arrivalelem.setAttribute("value", uridest);
+    }
+
+    
     //load the list of stored flights and offer them as pulldown
     chrome.storage.local.get("aavflights").then((result) => {
         storedflights = result.aavflights;
         console.log(storedflights);
-        
-        oldelem = document.getElementsByName("Flight_Number")[0]
             
         newelem = document.createElement("datalist");
         newelem.id = "storedflights"
@@ -69,12 +95,9 @@ else if (document.location.search.startsWith("?name=Submit_FREP")) {
         })        
         
         oldelem.setAttribute("list", "storedflights"); //offer above list of suggestions
-        oldelem.removeAttribute("value"); //remove default aal value
+        //oldelem.removeAttribute("value"); //remove default aal value
         //add new list into html doc
         oldelem.parentElement.appendChild(newelem)
-        
-        departurelem = document.getElementsByName("Departure_Airport")[0]
-        arrivalelem = document.getElementsByName("Arrival_Airport")[0]
         
         //at flightnumber elem change, do change from and to fields as well
         oldelem.addEventListener("input", (event) => {
