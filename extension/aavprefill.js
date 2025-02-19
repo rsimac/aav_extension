@@ -35,7 +35,12 @@ for (flight of flights) {
 		frep = `<a target="_blank" href="https://aavirtual.com/pages.php?name=Submit_FREP&flight=${airlinefnum}&orig=${from}&dest=${to}">${airlinefnum}</a>`;
 		skyvectorfrom = `<a target="_blank" href="https://skyvector.com/airport/${from}">${from}</a>`;
 		skyvectorto = `<a target="_blank" href="https://skyvector.com/airport/${to}">${to}</a>`;
-		newrow = newrow + frep + " " + skyvectorfrom +"-"+ skyvectorto+ "    " + simbrief + "    " + flightaware + "   "
+
+		chartfoxfrom = `<a target="_blank" href="https://chartfox.org/${from}">${from}</a>`;
+		chartfoxto = `<a target="_blank" href="https://chartfox.org/${to}">${to}</a>`;
+
+		newrow = newrow + frep + " " + skyvectorfrom +"-"+ skyvectorto+ "    " + simbrief + "    " + flightaware + "   ";
+		newrow = newrow + "CHARTFOX " + chartfoxfrom + "-" + chartfoxto;
 
 		store = {"airline": airline, "flight": flightnum, "from": from, "to": to};
 		storedflights.push(store);
@@ -50,4 +55,4 @@ for (flight of flights) {
 }
 
 flightstable.innerHTML = newrow;
-
+flightstable.width=600; //to accomodate all links next to flights
