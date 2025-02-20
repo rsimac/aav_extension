@@ -1,0 +1,7 @@
+body,input,select {
+    font-family: monospace;
+}
+
+option:nth-child(even) {
+    background-color: lightblue
+}
