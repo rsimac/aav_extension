@@ -25,6 +25,7 @@ function main() {
         dep = departures[i]
 
         ident_padded = dep["ident"].padEnd(10,".")
+        console.log(dep)
         text = `${ident_padded}${dep["destination"]["code"]} ${dep["scheduled_out"]} ${dep["scheduled_in"]}`
 
         option = new Option(text, dep["ident"])
@@ -33,6 +34,14 @@ function main() {
         fromflights_list.add(option)
 
     }
+
+    //testing local storage
+    chrome.storage.local.get("aavfrep").then((aavfrep) => {
+      //why is this async nobody knows
+      console.log(aavfrep);
+      storedfrep = aavfrep.aavfrep;
+    })
+
 
 
 

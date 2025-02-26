@@ -12,7 +12,12 @@
 		{
 			"matches": ["https://aavirtual.com/pages.php?name=Submit_FREP*"],
 			"js": ["aavsubmitfrep.js"]
+		},
+		{
+			"matches": ["https://aavirtual.com/pages.php?s=&name=Search_Timetable&search_action=search_table*"],
+			"js": ["aavtimetable.js"]
 		}
+
 	],
 
 	"permissions": ["storage"]

@@ -29,7 +29,7 @@ for (flight of flights) {
 	//console.log({airline}); console.log({flightnum}); console.log({from}); console.log({to});
 
 
-	if (airlinefnum != "COMPLETED") {
+	if ((airlinefnum != "COMPLETED") && (airlinefnum != "Awaiting")) {
 		simbrief = `<a target="_blank" href="https://dispatch.simbrief.com/options/custom?airline=${airline}&fltnum=${flightnum}&orig=${from}&dest=${to}">SIMBRIEF</a>`;
 		flightaware = `<a target="_blank" href="https://www.flightaware.com/live/findflight?origin=${from}&destination=${to}">FLIGHTAWARE</a>`
 		frep = `<a target="_blank" href="https://aavirtual.com/pages.php?name=Submit_FREP&flight=${airlinefnum}&orig=${from}&dest=${to}">${airlinefnum}</a>`;
