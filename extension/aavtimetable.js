@@ -33,37 +33,42 @@ searchbutton.attributeStyleMap.clear()
 */
 
 
-divelem = document.createElement("div")
-oldsearch.after(divelem)
+hrelem = document.createElement("hr")
+oldsearch.after(hrelem)
 
-colelem = document.createTextNode("Add selected flight to FREQ and search for next leg from: ")
+colelem = document.createTextNode("  the flight to the FREQ below, times in FREQ are UTC: ")
 colelem.style="font-family:monospace"
-divelem.after(colelem)
-searchicao = document.createTextNode("ICAO")
+
+
+searchicao = document.createTextNode("(select from the timetable)")
 searchicao.style="font-family:monospace"
-searchicao.textContent="ICAO"
-colelem.after(searchicao)
+
+
 
 searchbutton = document.createElement('button');
 searchbutton.setAttribute("type","button")
 searchbutton.setAttribute("name","searchbutton")
 searchbutton.disabled=true;
-searchbutton.textContent="SEARCH"
+searchbutton.textContent="ADD"
 //this all is needed to UNDO the default page css
-searchbutton.style="color:buttontext;background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
-searchicao.after(searchbutton)
+searchbutton.style="color:buttontext; width:150px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
+
+
+hrelem.after(searchbutton)
+searchbutton.after(colelem)
+colelem.after(searchicao)
 
 resetbutton = document.createElement('button');
 resetbutton.setAttribute("type","button")
 resetbutton.setAttribute("name","resetbutton")
 resetbutton.textContent="RESET"
 //this all is needed to UNDO the default page css
-resetbutton.style="color:buttontext;background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
-searchbutton.after(resetbutton)
+resetbutton.style="color:buttontext; width:150px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
+
 
 
 tablelem = document.createElement("table")
-resetbutton.after(tablelem)
+searchicao.after(tablelem)
 
 flightsrow = []
 
@@ -74,13 +79,32 @@ rowelem = document.createElement("tr")
 for (var col=0; col<10; col++) {
     colelem = document.createElement("td")
     colelem.textContent=``
-    colelem.style="font-family:monospace"
+    colelem.style="font-family:monospace; max-width:130px; border:1px solid;"
     rowelem.appendChild(colelem)
     
     flightsrow[col]=colelem
 }
 
+//another col to remove last added
+undobutton = document.createElement('button');
+undobutton.setAttribute("type","button")
+undobutton.setAttribute("name","undobutton")
+undobutton.textContent="UNDO"
+//this all is needed to UNDO the default page css
+undobutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
+colelem = document.createElement("td")
+colelem.style="font-family:monospace; max-width:80px; border:1px solid;"
+colelem.appendChild(undobutton)
+rowelem.appendChild(colelem)
+
+
 tablelem.appendChild(rowelem)
+
+tablelem.after(resetbutton)
+
+hrelem = document.createElement("hr")
+resetbutton.after(hrelem)
+
 
 
 //also fill in already set flights
@@ -95,11 +119,32 @@ chrome.storage.local.get("aavfrep").then((result) => {
     //draw it
     for (var i=0; i<storedfrep.length; i++) {
         flight = storedfrep[i]
-        flightsrow[i].textContent = `${flight.from} ${flight.dept} ->`
+        //flightsrow[i].textContent = `${flight.from} ${flight.dept} ->`
+        flightsrow[i].textContent=`${flight.num} ${flight.from}-${flight.to} [${flight.deptz}-${flight.arrtz}]`
     }
     
 })
 
+undobutton.onclick = function() {
+    console.log(this.value);
+
+    chrome.storage.local.get("aavfrep").then((result) => {
+        //why is this async nobody knows
+        console.log(JSON.stringify(result))
+        if (result.aavfrep) {
+            storedfrep = result["aavfrep"]
+            
+            storedfrep.pop() //remove last
+            flightsrow[storedfrep.length].textContent="" //clean the last box we just popped
+
+            //write back to storega
+            chrome.storage.local.set({"aavfrep": storedfrep});
+
+        }
+        
+    })
+
+}
 
 
 searchbutton.onclick = function() {
@@ -141,7 +186,7 @@ searchbutton.onclick = function() {
     sp.set("dep", flight["to"])
     sp.set("display_pos",0)
 
-    searchicao.textContent=flight.to
+    //searchicao.textContent=`${flight.num} ${flight.from}-${flight.to} [${flight.dept}-${flight.arrt}]`
 
     window.location.search=sp.toString();
 
@@ -182,9 +227,11 @@ for (var i=0; i<flightrows.length; i++) {
     flight = {
         "num": flightcols[0].innerText.trim(),
         "from": flightcols[1].innerText.slice(-4),
-        "dept": flightcols[2].innerText.slice(-5),
+        "dept": flightcols[2].innerText.split("/")[0],
+        "deptz": flightcols[2].innerText.split("/")[1],
         "to": flightcols[3].innerText.slice(-4),
-        "arrt": flightcols[4].innerText.slice(-5)
+        "arrt": flightcols[4].innerText.split("/")[0],
+        "arrtz": flightcols[4].innerText.split("/")[1]
     }
 
     selectbutton.setAttribute("value", JSON.stringify(flight))
@@ -194,7 +241,7 @@ for (var i=0; i<flightrows.length; i++) {
 
         flight = JSON.parse(this.value);
 
-        searchicao.textContent=flight["to"]
+        searchicao.textContent=`${flight.num} ${flight.from}-${flight.to} [${flight.deptz}-${flight.arrtz}]`
 
         searchbutton.value=this.value
 
