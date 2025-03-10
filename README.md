@@ -8,17 +8,25 @@ This Chrome Browser Extension enhances the Pilot Data page by adding various hyp
 * SimBrief link with selected flight details pre-filled into SimBrief Generate Flight page
 * FlighAware link with selected departure and arrival, displaying real flights and helping with gate assignments
 
+Timetable Search page has been extended to allow:
+* "walking" the flights, by selecting the flights and picking the next leg on the same page
+* allowing for seamless preparing of entire FREQ, all within same page, no more copy/pasting required
+* when preparing is done, all of the flights are visible in Submit FREQ page and are ready for submittal as usual
+
+This is how it looks like, at Timetable Search page, with 10 flights prepared, each originatind at previous flight destination.
+ ![image](https://github.com/user-attachments/assets/d45b974d-85a7-4587-8d5e-0704c0f54a5c)
+ 
+
 ## Implementation
-This extension consists of simple JavaScript code, and is allowed to read and modify only selected AAVirtual pages, namely the: `Pilot Data` page and `Submit FREP` page.
+This extension consists of simple JavaScript code, and is allowed to read and extend only selected AAVirtual pages. This code has no way of reading or otherwise affecting any other web or other resources at your computer.
 
 
 ## Installation
-1. At your local disk, create the folder named `extension`
-2. From this Github repository, download all of the files from the folder [extension](./extension) into your local folder.
-3. From Chrome web browser, follow the instructions on installing local Extensions: https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked
+1. From this Github repository, download the zip archive named extension.zip: https://github.com/rsimac/aav_extension/raw/refs/heads/main/extension.zip
+2. From Chrome web browser, follow the instructions on installing local Extensions: https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked
 
 ## Troubleshooting
-This script acts only on "Pilot Data" and "Submit FREP" pages. The script activity can be confirmed by pressing F12 while at those pages and observing the output of the Console tab within the Development Tool window pane. The Console should contain the line starting with: `starting aav prefill extension`. That confirms the script is installed and started.
+The script activity can be confirmed by pressing F12 while at those pages and observing the output of the Console tab within the Development Tool window pane. The Console should contain the line starting with: `starting aav prefill extension`. That confirms the script is installed and started.
 
 If there are any error below above message, feel free to send me a message on our AAV Forums, I'll be glad to help.
 
