@@ -14,7 +14,8 @@ Timetable Search page has been extended to allow:
 * when preparing is done, all of the flights are visible in Submit FREQ page and are ready for submittal as usual
 
 This is how it looks like, at Timetable Search page, with 10 flights prepared, each originatind at previous flight destination.
- ![image](https://github.com/user-attachments/assets/d45b974d-85a7-4587-8d5e-0704c0f54a5c)
+ ![image](https://github.com/user-attachments/assets/1e4b3a0d-e9a0-45c7-85c3-b29fef87eabc)
+
  
 
 ## Implementation
