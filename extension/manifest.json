@@ -15,7 +15,9 @@
 		},
 		{
 			"matches": ["https://aavirtual.com/pages.php?s=&name=Search_Timetable&search_action=search_table*"],
-			"js": ["aavtimetable.js"]
+			"js": ["aavtimetable.js"],
+			"css": ["aavextension.css"]
+
 		},
 		{
 			"matches": ["https://aavirtual.com/pages.php?name=Submit_FREQ*"],

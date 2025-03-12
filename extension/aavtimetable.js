@@ -45,24 +45,27 @@ searchicao.style="font-family:monospace"
 searchbutton = document.createElement('button');
 searchbutton.setAttribute("type","button")
 searchbutton.setAttribute("name","searchbutton")
+searchbutton.setAttribute("class","aavextbutton")
 searchbutton.disabled=true;
 searchbutton.textContent="NEXT"
 //this all is needed to UNDO the default page css
-searchbutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
+//searchbutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
 
 resetbutton = document.createElement('button');
 resetbutton.setAttribute("type","button")
 resetbutton.setAttribute("name","resetbutton")
 resetbutton.textContent="RESET"
+resetbutton.setAttribute("class","aavextbutton")
 //this all is needed to UNDO the default page css
-resetbutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
+//resetbutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
 
 undobutton = document.createElement('button');
 undobutton.setAttribute("type","button")
 undobutton.setAttribute("name","undobutton")
+undobutton.setAttribute("class","aavextbutton")
 undobutton.textContent="UNDO"
 //this all is needed to UNDO the default page css
-undobutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
+//undobutton.style="color:buttontext; width:80px; background-color:buttonface;border-width:2px;border-style:outset;border-color:buttonborder;border-image:initial;margin:0em;padding:2px 2px;"
 
 
 hrelem.after(colelem)

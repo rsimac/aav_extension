@@ -1,0 +1,12 @@
+.aavextbutton {
+    appearance: auto;
+    color:buttontext; 
+    width:80px; 
+    background-color:buttonface;
+    border-width:2px;
+    border-style:outset;
+    border-color:buttonborder;
+    border-image:initial;
+    margin:0em;
+    padding:2px 2px;
+}
